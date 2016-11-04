@@ -1,3 +1,5 @@
+from logger import LoggerMixin
+
 class PluginMount(type):
 
     def __init__(cls, name, bases, attrs):
@@ -9,6 +11,6 @@ class PluginMount(type):
             cls.plugins.append(cls)
 
 
-class Plugin(object):
+class Plugin(LoggerMixin):
 
     __metaclass__ = PluginMount
