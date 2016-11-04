@@ -1,11 +1,15 @@
 # -*- coding: utf-8 -*-
 
 from patient import PatientBrowser, visible
+from plugins import Plugin
 
-class ZSSKMachine(object):
+
+class ZSSKMachine(Plugin):
     """
     Provides an automation script for buying ZSSK tickets.
     """
+
+    identifier = 'zssk'
 
     def buy(self, trip, person):
         # with Browser() as browser:
