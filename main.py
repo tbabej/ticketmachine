@@ -41,7 +41,17 @@ class Person(object):
 
 
 class Trip(object):
-    pass
+    """
+    An object that encapsulates all the information about the planned
+    trip.
+    """
+
+    def __init__(self, start, end, time, date=None, via=None):
+        self.start = start
+        self.end = end
+        self.time = time
+        self.date = date or datetime.date.today().strftime('%Y.%M.%D')
+        self.via = via
 
 
 class TicketMachine(LoggerMixin):
