@@ -25,8 +25,8 @@ class TicketMachine(LoggerMixin):
                 self.debug(module_id + " loaded successfully.")
             except Exception as exc:
                 self.warning(
-                    "The {0} {1} module could not be loaded: {2} "
-                    .format(module, category.__name__[:-1], str(exc)))
+                    "The {0} module could not be loaded: {1} "
+                    .format(module, str(exc)))
                 self.log_exception()
 
     def main(self):
