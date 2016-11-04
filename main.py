@@ -14,7 +14,30 @@ from logger import LoggerMixin
 
 
 class Person(object):
-    pass
+    """
+    An object that encapsulates all the information about the person
+    taking the trip.
+    """
+
+    def __init__(self, data):
+        self._data = data
+
+    def __getattr__(self, name):
+        return self._data[name]
+
+    @classmethod
+    def from_config(cls):
+        data = {
+            'first_name': config.first_name,
+            'last_name': config.last_name,
+            'street': config.street,
+            'city': config.city,
+            'psc': config.psc,
+            'email': config.email,
+            'zssk_card_id': config.zssk_card_id,
+            'zssk_card_reg': config.zssk_card_reg,
+        }
+        return cls(data)
 
 
 class Trip(object):
