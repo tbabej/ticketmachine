@@ -110,6 +110,9 @@ class TicketMachine(LoggerMixin):
         machine.buy(trip, person)
 
 
-if __name__ == '__main__':
+def main():
     machine = TicketMachine()
     machine.main()
+
+if __name__ == '__main__':
+    main()
