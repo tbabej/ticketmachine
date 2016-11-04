@@ -1,4 +1,13 @@
+"""
+Usage: ticketmachine <machine> --from=<city> --to=<city> --time=<value> [--date=<today>] [--via=<city>]
+
+Options:
+  --date=DATE    Date to search for [default: today]
+"""
+
 import importlib
+from docopt import docopt
+
 from config import config
 from plugins import Plugin
 from logger import LoggerMixin
@@ -30,7 +39,8 @@ class TicketMachine(LoggerMixin):
                 self.log_exception()
 
     def main(self):
-        self.setup_logging()
+        arguments = docopt(__doc__, version='ticketmachine')
+        self.setup_logging(level='debug')
         self.import_plugins()
 
 
