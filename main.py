@@ -97,7 +97,17 @@ class TicketMachine(LoggerMixin):
         self.setup_logging(level='debug')
         self.import_plugins()
 
-        machine = self.get_plugin(arguments['<machine>'])
+        machine = self.get_plugin(arguments['<machine>'])()
+        trip = Trip(
+            start=unicode(arguments['--from'], 'utf-8'),
+            end=unicode(arguments['--to'], 'utf-8'),
+            via=unicode(arguments['--via'], 'utf-8'),
+            time=unicode(arguments['--time'], 'utf-8'),
+            date=unicode(arguments['--date'], 'utf-8'),
+        )
+        person = Person.from_config()
+
+        machine.buy(trip, person)
 
 
 if __name__ == '__main__':
