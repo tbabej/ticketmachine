@@ -60,7 +60,7 @@ class ZSSKMachine(Plugin):
         preukaz_chosen = False
         while not u'Registrácia overená' in browser.html:
             browser.slow.fill('personalData:shoppingCartItemList:0:travellerItemsList:0:field', person.first_name)
-            browser.slow.fill('personalData:shoppingCartItemList:0:travellerItemsList:1:field', person.surname)
+            browser.slow.fill('personalData:shoppingCartItemList:0:travellerItemsList:1:field', person.last_name)
             browser.slow.fill('personalData:shoppingCartItemList:0:travellerItemsList:2:field', person.zssk_card_id)
 
             if not preukaz_chosen:
