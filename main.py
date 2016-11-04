@@ -23,6 +23,27 @@ class Trip(object):
 
 class TicketMachine(LoggerMixin):
 
+    @property
+    def plugins(self):
+        """
+        Returns a dictionary of plugins available.
+        """
+
+        return {
+            plugin_class.identifier: plugin_class
+            for plugin_class in Plugin.plugins
+        }
+
+    def get_plugin(self, identifier):
+        """
+        Returns a plugin class corresponding to the given identifier.
+        """
+
+        try:
+            return self.plugins[identifier]
+        except KeyError:
+            self.error('Machine "{0}" is not available'.format(identifier))
+
     def import_plugins(self):
         import machines
 
@@ -42,6 +63,8 @@ class TicketMachine(LoggerMixin):
         arguments = docopt(__doc__, version='ticketmachine')
         self.setup_logging(level='debug')
         self.import_plugins()
+
+        machine = self.get_plugin(arguments['<machine>'])
 
 
 if __name__ == '__main__':
