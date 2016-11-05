@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-install_requirements = ['splinter']
+install_requirements = ['splinter', 'docopt']
 
 version = '0.2.0'
 
