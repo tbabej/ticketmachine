@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 import time
 
-from patient import PatientBrowser, visible
-from plugins import Plugin
+from ticketmachine.patient import PatientBrowser, visible
+from ticketmachine.plugins import Plugin
 
 
 class ZSSKMachine(Plugin):
