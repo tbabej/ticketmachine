@@ -1,5 +1,5 @@
 """
-Usage: ticketmachine <machine> --from=<city> --to=<city> --time=<value> [--date=<today>] [--via=<city>]
+Usage: ticketmachine <machine> --from=<city> --to=<city> --time=<value> [--date=<today>] [--via=<city>] [--pay]
 
 Options:
   --date=DATE    Date to search for [default: today]
@@ -107,7 +107,7 @@ class TicketMachine(LoggerMixin):
         )
         person = Person.from_config()
 
-        machine.buy(trip, person)
+        machine.buy(trip, person, bool(arguments['--pay']))
 
 
 def main():

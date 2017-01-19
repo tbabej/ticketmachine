@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import time
 
-from ticketmachine.patient import PatientBrowser, visible
+from ticketmachine.patient import PatientBrowser, visible, slow
 from ticketmachine.plugins import Plugin
 
 
@@ -12,7 +12,7 @@ class ZSSKMachine(Plugin):
 
     identifier = 'zssk'
 
-    def buy(self, trip, person):
+    def buy(self, trip, person, pay):
         # with Browser() as browser:
         browser = PatientBrowser()
         url = 'http://www.slovakrail.sk/'
@@ -31,7 +31,7 @@ class ZSSKMachine(Plugin):
 
         train_line = browser.find_by_css('.tmp-item-line').first
 
-        train_line.find_by_text(u'Nákup dokladu').first.click()
+        slow(train_line).find_by_text(u'Nákup dokladu').first.click()
         visible(train_line.find_by_text(u'Cestovný lístok')).first.click()
 
         browser.find_by_id('tmp-table-parameters').first.find_by_tag('td').first.click()
@@ -73,12 +73,13 @@ class ZSSKMachine(Plugin):
             browser.wait_animation()
             browser.slow.fill('personalData:shoppingCartItemList:0:travellerItemsList:3:field', person.zssk_card_reg)
             browser.slow.find_by_text(u'Over registračné číslo').first.click()
-            time.sleep(1)
+            time.sleep(5)
 
         browser.find_by_text(u'Potvrdzujem, že údaje o cestujúcom/cestujúcich sú správne a súhlasím s poskytnutím osobných údajov pre účely spracovania objednávky cestovných dokladov.').first.click()
         browser.click_and_disappear_by_text(u'Pokračovať v platbe')
 
         browser.new_page()
-        browser.find_by_text(u'Súhlasím s obchodnými podmienkami').first.click()
-        browser.wait_animation()
-        browser.click_and_disappear_by_text(u'Pokračovať v nákupe')
+        if not pay:
+            browser.slow.find_by_text(u'Súhlasím s obchodnými podmienkami').first.click()
+            browser.wait_animation()
+            browser.click_and_disappear_by_text(u'Pokračovať v nákupe')

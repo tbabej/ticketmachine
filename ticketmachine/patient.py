@@ -77,3 +77,7 @@ def visible(element, timeout=10):
         time.sleep(1)
 
     return element
+
+def slow(element, sleep=4):
+    time.sleep(sleep)
+    return element
